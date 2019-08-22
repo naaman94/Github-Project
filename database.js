@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-//change database name in the next line
-mongoose.connect('mongodb://localhost/[database name]', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/Repos', { useNewUrlParser: true });
 const db = mongoose.connection;
 
 db.on('error', function () {
   console.log('mongoose connection error');
+  console.log('____________________________')
 });
 
 db.once('open', function () {
