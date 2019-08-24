@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "react": "cd ./[react app folder] && npm run-script react"
+    "react": "cd ./github-api && react-scripts start"
   },
   "author": "",
   "license": "ISC",
