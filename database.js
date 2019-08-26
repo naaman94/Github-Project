@@ -27,19 +27,19 @@ let Tasks = mongoose.model('tasks', tasksSchema);
 
 // Example function
 let readRepos = (cb) => {
-  console.log('readRepos');
+  // console.log("readRepos in DB req".'readRepos');
   Tasks.find({}, (err, data) => {
     if (err) {
       cb(err)
     } else {
-      console.log('data:', data);
+      // console.log('data:', data);
       cb(data)
     }
   })
 }
 
 let creatRepo = (newRepo, cb) => {
-  console.log('newRepo**', newRepo);
+  // console.log("creatRepo in DB req", newRepo);
   Tasks.create(newRepo, (err, data) => {
     if (err) {
       cb(err)
@@ -50,21 +50,25 @@ let creatRepo = (newRepo, cb) => {
   })
 }
 
+
+
 let editRepo = (togPrivate, cb) => {
-  // y = ObjectId(togPrivate._id)
-  Tasks.findByIdAndUpdate(togPrivate._id, { $set: { private: !togPrivate.private } }, (err, data) => {
-    if (err) {
-      cb(err)
-    } else {
-      // console.log('new data:', data);
-      readRepos(cb)
-    }
-  })
+  // console.log("editRepo in DB req", togPrivate);
+  Tasks.findByIdAndUpdate(togPrivate._id,
+    { $set: { private: !togPrivate.private } },
+    (err, data) => {
+      if (err) {
+        cb(err)
+      } else {
+        // console.log('new data:', data);
+        readRepos(cb)
+      }
+    })
 }
 
 let deleteRepo = (deleteItem, cb) => {
-  console.log('deleteItem', deleteItem);
-  Tasks.findOneAndDelete(deleteItem, (err, data) => {
+  // console.log('deleteItem in DB req', deleteItem);
+  Tasks.findByIdAndDelete(deleteItem._id, (err, data) => {
     if (err) {
       cb(err)
     } else {
@@ -84,20 +88,4 @@ module.exports = {
 }
 
 
-// Start your code below
 
-
-// if(mongoose.Types.ObjectId.isValid(id)) {
-//   User.findByIdAndUpdate(id,{$set:{name:user.name}},{new:true})       .then((docs)=>{
-//      if(docs) {
-//        resolve({success:true,data:docs});
-//      } else {
-//        reject({success:false,data:"no such user exist"});
-//      }
-//   }).catch((err)=>{
-//       reject(err);
-//   })
-//   } else {
-//     reject({success:"false",data:"provide correct key"});
-//   }
-// ObjectId('5d6076139d73c7300787b94f')

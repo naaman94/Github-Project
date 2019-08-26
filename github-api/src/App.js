@@ -13,7 +13,7 @@ class App extends React.Component {
     axios.post(`http://localhost:9000/tasks`, data)
       .then(response => {
         this.setState({ items: response.data })
-        console.log('response.data', response.data);
+        // console.log('response.data from creatRepo -app -react', response.data);
       })
       .catch(error => {
         console.log("Error", error)
@@ -26,14 +26,11 @@ class App extends React.Component {
     axios.get(`http://localhost:9000/tasks`)
       .then(response => {
         this.setState({ items: response.data })
-        console.log('response.data', response.data);
+        // console.log('response.data from readRepo -app -react', response.data);
       })
       .catch(error => {
         console.log("Error", error)
-        // this.setState({ items: [], status: "User name is not found" })
       })
-    // console.log('this.state.items', this.state.status);
-    // this.state.items.message ? this.setState({ status: "no data" }) : this.setState({ status: "there is no data" })
 
 
   }
@@ -43,7 +40,7 @@ class App extends React.Component {
     axios.put(`http://localhost:9000/tasks`, item)
       .then(response => {
         this.setState({ items: response.data })
-        console.log('response.data', response.data);
+        // console.log('response.data from updateRepo -app -react', response.data);
       })
       .catch(error => {
         console.log("Error", error)
@@ -54,7 +51,7 @@ class App extends React.Component {
     axios.delete(`http://localhost:9000/tasks`, item)
       .then(response => {
         this.setState({ items: response.data })
-        console.log('response.data', response.data);
+        // console.log('response.data from delete -app -react', response.data);
       })
       .catch(error => {
         console.log("Error", error)
@@ -74,7 +71,6 @@ class App extends React.Component {
         <Navbar readRepo={readRepo} reload={reload} creatRepo={creatRepo} />
         <br></br>
         <SearchResults updateRepo={updateRepo} deleteRepo={deleteRepo} items={items} />
-        {/* <h1 align="center" >{this.state.status}</h1> */}
       </>
     );
   }

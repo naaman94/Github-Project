@@ -19,10 +19,17 @@ export class Navbar extends Component {
     }
     sendData = (e) => {
         e.preventDefault();//prevent form to default
-        if (this.state.title !== "" && this.state.language !== "") {
+        let regTestTitle = /^[\S]/.test((this.state.title))
+        let regTestLanguage = /^[\S]/.test((this.state.language))
+        if (regTestLanguage && regTestTitle) {
             this.props.creatRepo(this.state)
             console.log('this.state', this.state);
-            this.props.readRepo()
+            this.setState({
+                title: "",
+                private: false,
+                language: ""
+
+            })
         }
     }
     render() {
@@ -31,16 +38,16 @@ export class Navbar extends Component {
             <>
                 <nav className="navbar navbar-expand-lg sticky-top navbar-light bg-light ">
                     <form onSubmit={sendData} className="form-inline container" >
-                        <input name="title" onChange={changeData} className="form-control  col-9 col-lg-3 " type="text" placeholder="Repo Title" aria-label="Repo Title" />
-                        <input name="language" onChange={changeData} className="form-control  col-9 col-lg-3 " type="text" placeholder="Repo Language" aria-label="Repo Language" />
-                        <select onChange={changeData} name="private" className="input-group custom-select col-lg-2" id="inputGroupSelect01">
+                        <input value={this.state.title} name="title" onChange={changeData} className="form-control m-1 col-9 col-lg-3 " type="text" placeholder="Repo Title" aria-label="Repo Title" />
+                        <input value={this.state.language} name="language" onChange={changeData} className="form-control m-1 col-9 col-lg-3 " type="text" placeholder="Repo Language" aria-label="Repo Language" />
+                        <select value={this.state.private} onChange={changeData} name="private" className="input-group custom-select col-lg-2" id="inputGroupSelect01">
                             <option value="false">Public</option>
-                            <option value="true">private</option>
+                            <option value="true">Private</option>
                         </select>
 
-                        <button className="btn btn-outline-primary  col-3 col-lg-3 my-sm-0" value="Submit" type="submit">ADD</button>
+                        <button className="btn btn-outline-primary  col-12 col-lg-3 my-sm-0" value="Submit" type="submit">ADD</button>
                     </form>
-                    <button onClick={this.props.readRepo} className="btn btn-outline-info  col-3 col-lg-2 my-sm-0" type="button">Get All Repo</button>
+                    <button onClick={this.props.readRepo} className="btn btn-outline-info  col-12 col-lg-2 my-sm-0" type="button">Get All Repo</button>
 
                 </nav>
             </>
@@ -50,19 +57,3 @@ export class Navbar extends Component {
 
 
 export default Navbar
-{/* <>
-    <nav className="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-        <form onSubmit={sendData} className="form-inline container col-12 col-xl-8 col-lg-6" >
-            <input name="title" onChange={changeData} className="form-control  col-9 col-lg-3 " type="text" placeholder="Repo Title" aria-label="Repo Title" />
-            <input name="language" onChange={changeData} className="form-control  col-9 col-lg-3 " type="text" placeholder="Repo Language" aria-label="Repo Language" />
-            <select onChange={changeData} name="private" className="input-group custom-select" id="inputGroupSelect01">
-                <option value="false">Public</option>
-                <option value="true">private</option>
-            </select>
-
-            <button className="btn btn-outline-primary  col-3 col-lg-1 my-sm-0" value="Submit" type="submit">ADD</button>
-        </form>
-        <button onClick={this.props.readRepo} className="btn btn-outline-info  col-3 col-lg-1 my-sm-0" type="button">Get All Repo</button>
-
-    </nav>
-</> */}
